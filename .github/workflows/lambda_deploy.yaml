@@ -1,0 +1,35 @@
+name: Deploy to AWS Lambda
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8' # Adjust this as per Lambda runtime
+
+    - name: Create deployment package
+      run: |
+        cd dependencies
+        zip -r ../deployment_package.zip .  # Zip dependencies
+        cd ../src
+        zip -ur ../deployment_package.zip .  # Add Lambda function code to the zip
+
+    - name: Deploy to AWS Lambda
+      run: |
+        aws lambda update-function-code --function-name resumAI --zip-file fileb://deployment_package.zip
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+    

@@ -1,0 +1,99 @@
+{
+    "personal_information": {
+        "name": "Elias Touil",
+        "email": "elias.touil@gmail.com",
+        "github": "github.com/elias-touil"
+    },
+    "summary": "9 years of experience full stack software developer with design abilities equipped to deeply understand users and business while overcoming technical hurdles. I seek honorable and adventurous collaborators uncovering their full potential and helping others flourish.",
+    "work_experience": [
+        {
+            "job_title": "Full Stack Developer",
+            "company": "Spark Jam (Saas Startup Cofounder)",
+            "location": "",
+            "date_range": "June 2023 - Dec 2023",
+            "bullets": [
+                "Designed and developed an audience engagement app for content creators, acquiring 2,500 users in its first month using Next.js, Typescript, Tailwind CSS, Prisma, PostgreSQL, and Vercel",
+                "Established a continuous feedback loop by monitoring users with Google Analytics, and Microsoft Clarity, and running usability tests with early adopters",
+                "Introduced Scrum and documented procedures utilizing ClickUp to clarify the technical workflow for non-technical stakeholders",
+                "Onboarded an engineer and documented the code to a successful responsibility transfer"
+            ]
+        },
+        {
+            "job_title": "Lead Developer and Designer",
+            "company": "La Maison Jaune (Saas Startup Founder)",
+            "location": "",
+            "date_range": "2019 - 2023",
+            "bullets": [
+                "Conceived a digital museum guide by leading a team of 3 augmenting 55k museum visits using Next.js, TypeScript, Apollo, GraphQL, Chakra-UI, PostgreSQL, and Heroku, tripling visitors' adoption compared to the previous native museum app",
+                "Single-handedly built a prototype using Preact, pitched and secured Canada's largest art museum as an early collaborator two weeks after the idea's inception",
+                "Brought image recognition and 3D to the browser, conducted user experience tests to improve on friction points, doubling education content engagement among museum visitors",
+                "Recruited three software engineers and managed collaboration with outsourcing firms using agile and scrum to increase development speed and meet clients\u2019 demands",
+                "Engineered a continuous integration and continuous deployment (CI/CD) pipeline across multiple instances utilizing Git, Heroku, and Bash streamlining individual contributions",
+                "Authored and submitted successful grant proposals, securing $160K in funding and $25K in sponsorships from government and incubators, enabling key developmental milestones",
+                "Produced promotional and sales visual assets, leading teams of up to 8, to ensure visibility and demonstrability of product on the web and at industry events"
+            ]
+        },
+        {
+            "job_title": "Full Stack Developer and Designer",
+            "company": "Freelance",
+            "location": "",
+            "date_range": "2014 - 2022",
+            "bullets": [
+                "Re-designed branding, user experience, and user interface of a data-intensive workforce management tool using Django, React.js and MUI, positioning the product as the modern option and reducing most paths to action by 30%",
+                "Proposed new frontend patterns and tooling, coached offshore developers on using data visualization and calendar tools to improve development speed and code quality"
+            ]
+        }
+    ],
+    "skills": {
+        "Full Stack": [
+            "TypeScript",
+            "JavaScript",
+            "Node.js",
+            "React.js",
+            "Next.js",
+            "GraphQL",
+            "PostgreSQL",
+            "Prisma",
+            "TypeORM",
+            "Cascading Style Sheets (CSS)",
+            "Tailwind CSS",
+            "Chakra-UI",
+            "Material UI (MUI)",
+            "Vercel",
+            "Heroku",
+            "GitHub actions",
+            "Husky"
+        ],
+        "Design": [
+            "User Interface Design (UI)",
+            "User Experience Research",
+            "User Experience Design (UX)",
+            "Usability Testing",
+            "Wireframing",
+            "Prototyping",
+            "Graphic Design",
+            "Figma",
+            "Photoshop",
+            "SVG"
+        ],
+        "Startups": [
+            "Grant Writing",
+            "Value Proposition Design",
+            "Pitch Deck Design",
+            "Photography",
+            "Video"
+        ]
+    },
+    "education": [
+        {
+            "degree": "B.Sc.A Computer Sciences (Partial)",
+            "institution": "Universit\u00e9 du Qu\u00e9bec \u00e0 Montr\u00e9al",
+            "date_range": "2015 - 2016"
+        },
+        {
+            "degree": "B.Sc. Psychology (Partial)",
+            "institution": "Universit\u00e9 de Montr\u00e9al",
+            "date_range": "2010 - 2012"
+        }
+    ]
+}

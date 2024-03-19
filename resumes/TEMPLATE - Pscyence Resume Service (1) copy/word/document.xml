@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas"
+    xmlns:cx="http://schemas.microsoft.com/office/drawing/2014/chartex"
+    xmlns:cx1="http://schemas.microsoft.com/office/drawing/2015/9/8/chartex"
+    xmlns:cx2="http://schemas.microsoft.com/office/drawing/2015/10/21/chartex"
+    xmlns:cx3="http://schemas.microsoft.com/office/drawing/2016/5/9/chartex"
+    xmlns:cx4="http://schemas.microsoft.com/office/drawing/2016/5/10/chartex"
+    xmlns:cx5="http://schemas.microsoft.com/office/drawing/2016/5/11/chartex"
+    xmlns:cx6="http://schemas.microsoft.com/office/drawing/2016/5/12/chartex"
+    xmlns:cx7="http://schemas.microsoft.com/office/drawing/2016/5/13/chartex"
+    xmlns:cx8="http://schemas.microsoft.com/office/drawing/2016/5/14/chartex"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:aink="http://schemas.microsoft.com/office/drawing/2016/ink"
+    xmlns:am3d="http://schemas.microsoft.com/office/drawing/2017/model3d"
+    xmlns:o="urn:schemas-microsoft-com:office:office"
+    xmlns:oel="http://schemas.microsoft.com/office/2019/extlst"
+    xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+    xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"
+    xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing"
+    xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"
+    xmlns:w10="urn:schemas-microsoft-com:office:word"
+    xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+    xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml"
+    xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml"
+    xmlns:w16cex="http://schemas.microsoft.com/office/word/2018/wordml/cex"
+    xmlns:w16cid="http://schemas.microsoft.com/office/word/2016/wordml/cid"
+    xmlns:w16="http://schemas.microsoft.com/office/word/2018/wordml"
+    xmlns:w16sdtdh="http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash"
+    xmlns:w16se="http://schemas.microsoft.com/office/word/2015/wordml/symex"
+    xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup"
+    xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk"
+    xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml"
+    xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape"
+    mc:Ignorable="w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14">
+    <w:body>
+        <w:p w14:paraId="5F1E85E0" w14:textId="77777777" w:rsidR="00873727"
+            w:rsidRDefault="00873727" w:rsidP="0017368B">
+            <w:pPr>
+                <w:pStyle w:val="Heading" />
+                <w:spacing w:before="200" w:line="240" w:lineRule="auto" />
+                <w:rPr>
+                    <w:sz w:val="2" />
+                    <w:szCs w:val="2" />
+                </w:rPr>
+            </w:pPr>
+        </w:p>
+        <w:p w14:paraId="3AB3250E" w14:textId="77777777" w:rsidR="00580A5A"
+            w:rsidRDefault="00580A5A" w:rsidP="00580A5A">
+            <w:pPr>
+                <w:pStyle w:val="BodyA" />
+                <w:spacing w:after="0" w:line="240" w:lineRule="auto" />
+                <w:jc w:val="center" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:b />
+                    <w:bCs />
+                    <w:sz w:val="32" />
+                    <w:szCs w:val="32" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:b />
+                    <w:bCs />
+                    <w:sz w:val="32" />
+                    <w:szCs w:val="32" />
+                </w:rPr>
+                <w:t>Name</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="1DAAC0CC" w14:textId="719849C1" w:rsidR="00580A5A" w:rsidRPr="003036D1"
+            w:rsidRDefault="00E25615" w:rsidP="00580A5A">
+            <w:pPr>
+                <w:pStyle w:val="BodyA" />
+                <w:spacing w:after="0" w:line="240" w:lineRule="auto" />
+                <w:jc w:val="center" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="18" />
+                    <w:szCs w:val="18" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="18" />
+                    <w:szCs w:val="18" />
+                </w:rPr>
+                <w:t>[</w:t>
+            </w:r>
+            <w:proofErr w:type="spellStart" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="18" />
+                    <w:szCs w:val="18" />
+                </w:rPr>
+                <w:t>information</w:t>
+            </w:r>
+            <w:proofErr w:type="spellEnd" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="18" />
+                    <w:szCs w:val="18" />
+                </w:rPr>
+                <w:t>]</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="3102CCC6" w14:textId="70739868" w:rsidR="00873727"
+            w:rsidRDefault="008716E2" w:rsidP="0017368B">
+            <w:pPr>
+                <w:pStyle w:val="Heading" />
+                <w:spacing w:before="200" w:line="240" w:lineRule="auto" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                </w:rPr>
+                <w:t>Mission Statement / Summary</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="53769F12" w14:textId="1F96B1DE" w:rsidR="00873727" w:rsidRPr="00604A6E"
+            w:rsidRDefault="00A5005C" w:rsidP="0017368B">
+            <w:pPr>
+                <w:pStyle w:val="BodyA" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>[</w:t>
+            </w:r>
+            <w:proofErr w:type="spellStart" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>summary_text</w:t>
+            </w:r>
+            <w:proofErr w:type="spellEnd" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>]</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="08C158E6" w14:textId="77777777" w:rsidR="00873727"
+            w:rsidRDefault="008716E2" w:rsidP="00D97DF4">
+            <w:pPr>
+                <w:pStyle w:val="Heading" />
+                <w:spacing w:before="200" w:line="240" w:lineRule="auto" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                </w:rPr>
+                <w:t>Work Experience</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="6E19F29A" w14:textId="08572966" w:rsidR="00B71C52" w:rsidRPr="00B71C52"
+            w:rsidRDefault="00B71C52" w:rsidP="00B71C52">
+            <w:pPr>
+                <w:pStyle w:val="BodyA" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+            </w:pPr>
+            <w:proofErr w:type="spellStart" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>work_experience_</w:t>
+            </w:r>
+            <w:proofErr w:type="gramStart" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>text</w:t>
+            </w:r>
+            <w:proofErr w:type="spellEnd" />
+            <w:proofErr w:type="gramEnd" />
+        </w:p>
+        <w:p w14:paraId="084A0B23" w14:textId="77777777" w:rsidR="00D27D09" w:rsidRPr="00D420A7"
+            w:rsidRDefault="00D27D09" w:rsidP="00D27D09">
+            <w:pPr>
+                <w:pStyle w:val="Heading" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                </w:rPr>
+                <w:t>Leadership Experience</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="1B99E3B5" w14:textId="77777777" w:rsidR="00D27D09" w:rsidRPr="000C2E23"
+            w:rsidRDefault="00D27D09" w:rsidP="00D27D09">
+            <w:pPr>
+                <w:pStyle w:val="BodyA" />
+                <w:spacing w:after="0" w:line="240" w:lineRule="auto" />
+                <w:ind w:firstLine="360" />
+                <w:jc w:val="both" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>[</w:t>
+            </w:r>
+            <w:proofErr w:type="spellStart" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>leadership_title</w:t>
+            </w:r>
+            <w:proofErr w:type="spellEnd" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>]</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="42671980" w14:textId="1D7A7B8A" w:rsidR="00D27D09" w:rsidRPr="00D27D09"
+            w:rsidRDefault="00D27D09" w:rsidP="00D420A7">
+            <w:pPr>
+                <w:pStyle w:val="BodyA" />
+                <w:numPr>
+                    <w:ilvl w:val="0" />
+                    <w:numId w:val="4" />
+                </w:numPr>
+                <w:spacing w:after="0" w:line="240" w:lineRule="auto" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>[</w:t>
+            </w:r>
+            <w:proofErr w:type="spellStart" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>leadership_experience</w:t>
+            </w:r>
+            <w:proofErr w:type="spellEnd" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>]</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="33B137B4" w14:textId="7A1D1C28" w:rsidR="00D420A7" w:rsidRPr="00D420A7"
+            w:rsidRDefault="00D27D09" w:rsidP="00DD4C10">
+            <w:pPr>
+                <w:pStyle w:val="Heading" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                </w:rPr>
+                <w:t>Projects</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="23E5A962" w14:textId="5BE3D3D0" w:rsidR="00D420A7" w:rsidRPr="000C2E23"
+            w:rsidRDefault="00D27D09" w:rsidP="00DD4C10">
+            <w:pPr>
+                <w:pStyle w:val="BodyA" />
+                <w:spacing w:after="0" w:line="240" w:lineRule="auto" />
+                <w:ind w:firstLine="360" />
+                <w:jc w:val="both" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>[</w:t>
+            </w:r>
+            <w:proofErr w:type="spellStart" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>project_title</w:t>
+            </w:r>
+            <w:proofErr w:type="spellEnd" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>]</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="5D57147A" w14:textId="3DA73183" w:rsidR="00873727" w:rsidRPr="00D420A7"
+            w:rsidRDefault="00D27D09" w:rsidP="00D420A7">
+            <w:pPr>
+                <w:pStyle w:val="BodyA" />
+                <w:numPr>
+                    <w:ilvl w:val="0" />
+                    <w:numId w:val="4" />
+                </w:numPr>
+                <w:spacing w:after="0" w:line="240" w:lineRule="auto" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>[</w:t>
+            </w:r>
+            <w:proofErr w:type="spellStart" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>project_bullet</w:t>
+            </w:r>
+            <w:proofErr w:type="spellEnd" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>]</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="70B96688" w14:textId="77777777" w:rsidR="00873727"
+            w:rsidRDefault="008716E2" w:rsidP="00D87080">
+            <w:pPr>
+                <w:pStyle w:val="Heading" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                </w:rPr>
+                <w:t>Skills</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="139F63EC" w14:textId="77777777" w:rsidR="00873727"
+            w:rsidRDefault="008716E2" w:rsidP="00D87080">
+            <w:pPr>
+                <w:pStyle w:val="BodyA" />
+                <w:spacing w:after="0" w:line="240" w:lineRule="auto" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:eastAsia="Times New Roman"
+                        w:hAnsi="Times New Roman" w:cs="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+            </w:pPr>
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>[skills]</w:t>
+            </w:r>
+        </w:p>
+        <w:p w14:paraId="262F43B3" w14:textId="68698131" w:rsidR="00873727"
+            w:rsidRDefault="008716E2" w:rsidP="00D87080">
+            <w:pPr>
+                <w:pStyle w:val="Heading" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                    <w:lang w:val="fr-FR" />
+                </w:rPr>
+            </w:pPr>
+            <w:bookmarkStart w:id="0" w:name="_headingh.kg0wqtvjt45z" />
+            <w:bookmarkEnd w:id="0" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                </w:rPr>
+                <w:t>E</w:t>
+            </w:r>
+            <w:proofErr w:type="spellStart" />
+            <w:r>
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="28" />
+                    <w:szCs w:val="28" />
+                    <w:lang w:val="fr-FR" />
+                </w:rPr>
+                <w:t>ducation</w:t>
+            </w:r>
+            <w:proofErr w:type="spellEnd" />
+        </w:p>
+        <w:p w14:paraId="11C5995F" w14:textId="20628518" w:rsidR="00D87080" w:rsidRPr="00D87080"
+            w:rsidRDefault="00D87080" w:rsidP="00D87080">
+            <w:pPr>
+                <w:pStyle w:val="BodyA" />
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+            </w:pPr>
+            <w:r w:rsidRPr="00D87080">
+                <w:rPr>
+                    <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" />
+                    <w:sz w:val="24" />
+                    <w:szCs w:val="24" />
+                    <w:lang w:val="en-US" />
+                </w:rPr>
+                <w:t>[education_text]</w:t>
+            </w:r>
+        </w:p>
+        <w:sectPr w:rsidR="00D87080" w:rsidRPr="00D87080" w:rsidSect="00580EEE">
+            <w:headerReference w:type="default" r:id="rId8" />
+            <w:pgSz w:w="12240" w:h="15840" />
+            <w:pgMar w:top="27" w:right="720" w:bottom="720" w:left="720" w:header="0" w:footer="0"
+                w:gutter="0" />
+            <w:pgNumType w:start="1" />
+            <w:cols w:space="720" />
+            <w:docGrid w:linePitch="326" />
+        </w:sectPr>
+    </w:body>
+</w:document>
