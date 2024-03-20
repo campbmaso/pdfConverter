@@ -17,8 +17,61 @@ import requests
 import time
 import json
 
-api_key = os.getenv("OPENAI_API_KEY")
-client = OpenAI(api_key=api_key)
+# AWS Secrets Manager client
+dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
+api_usage_table = dynamodb.Table('APIKeyUsage')
+client = boto3.client(service_name='secretsmanager', region_name="us-east-2")
+SECRET_NAME = "openai_secrets"
+
+def get_secret_value(api_key_identifier):
+
+    try:
+        get_secret_value_response = client.get_secret_value(SecretId=SECRET_NAME)
+    except ClientError as e:
+        # Handle exceptions as necessary.
+        print(f"ClientError: {e}")
+        return None
+    
+    # Extract the secret JSON
+    secret_values = eval(get_secret_value_response['SecretString'])  # Convert string to dictionary
+    
+    # Return the specific API key for the provided identifier.
+    return secret_values.get(api_key_identifier)
+
+def select_api_key():
+    # Fetch all items (API keys and their counts) from DynamoDB.
+    response = api_usage_table.scan()
+    keys_data = response['Items']
+    
+    # If the table is empty, initialize it with the API key identifiers and counts of 0.
+    if not keys_data:
+        api_key_identifiers = [f"api_key{i}" for i in range(1, 26)]
+        for key_id in api_key_identifiers:
+            api_usage_table.put_item(Item={'APIKey': key_id, 'count': 0}) 
+        
+        # Re-scan to get the initialized data.
+        response = api_usage_table.scan()
+        keys_data = response['Items']
+
+    # Sort the items based on the count (ascending) and select the first item (least used key).
+    selected_key_data = sorted(keys_data, key=lambda x: x['count'])[0]
+    
+    # Increment the count for the selected key.
+    api_usage_table.update_item(
+        Key={'APIKey': selected_key_data['APIKey']},
+        UpdateExpression='SET #count_attribute = #count_attribute + :increment',
+        ExpressionAttributeNames={'#count_attribute': 'count'},
+        ExpressionAttributeValues={':increment': 1}
+    )
+
+    
+    # Return the API key identifier (like "api_key1").
+    return selected_key_data['APIKey']
+
+selected_key_identifier = select_api_key()
+actual_api_key_value = get_secret_value(selected_key_identifier)
+client = OpenAI(api_key=actual_api_key_value)
+
 
 s3_client = boto3.client("s3")
 BUCKET_NAME = os.environ.get("resume_bucket")
