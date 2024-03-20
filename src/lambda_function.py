@@ -595,12 +595,13 @@ def lambda_handler(event, context):
     event_body = event.get('body')
     filename = event_body.get('filename')
     resume_text = get_resume_text(filename)
+    
     parsed_user_data = generate_sections(resume_text)
     print(f"execution time took: {time.time() - execution_start} seconds.")
-    
-    json_user_data = json.dumps(parsed_user_data, indent=4)
-        
+    # json_user_data = json.dumps(parsed_user_data, indent=4)
+    print(F"parsed_user_data: {parsed_user_data}")
     return parsed_user_data
+
 if os.getenv("LOCAL", True):
     parsed_user_data = {
         "personal_information": {
