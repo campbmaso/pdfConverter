@@ -600,7 +600,12 @@ def lambda_handler(event, context):
     print(f"execution time took: {time.time() - execution_start} seconds.")
     # json_user_data = json.dumps(parsed_user_data, indent=4)
     print(F"parsed_user_data: {parsed_user_data}")
-    return parsed_user_data
+    
+    response = {
+            "statusCode": 200,
+            "body": json.dumps(parsed_user_data)
+        }
+    return response
 
 if os.getenv("LOCAL", True):
     parsed_user_data = {
