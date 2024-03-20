@@ -591,16 +591,16 @@ def generate_sections(dummy_resume, concurrent=True):
 
 def lambda_handler(event, context):
     print(f"event: {event}")
-    # execution_start = time.time()
-    # event_body = event.get('body')
-    # filename = event_body.get('filename')
-    # resume_text = get_resume_text(filename)
+    execution_start = time.time()
+    event_body = event.get('body')
+    filename = event_body.get('filename')
+    resume_text = get_resume_text(filename)
     
-    # parsed_user_data = generate_sections(resume_text)
-    # print(f"execution time took: {time.time() - execution_start} seconds.")
-    # # json_user_data = json.dumps(parsed_user_data, indent=4)
-    # print(F"parsed_user_data: {parsed_user_data}")
-    parsed_user_data = "test"
+    parsed_user_data = generate_sections(resume_text)
+    print(f"execution time took: {time.time() - execution_start} seconds.")
+    # json_user_data = json.dumps(parsed_user_data, indent=4)
+    print(F"parsed_user_data: {parsed_user_data}")
+    # parsed_user_data = "test"
     response = {
             "statusCode": 200,
             "body": json.dumps(parsed_user_data)
