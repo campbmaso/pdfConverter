@@ -85,7 +85,8 @@ resume_text = ""
 def get_resume_text(filename):
     local = os.getenv("LOCAL", False)
     resume_text = ""
-    if local == True:
+
+    if local:
         with open(
             "/Users/campbmaso/Desktop/Development/GitHub/pdfConverter/resumes/Cory Mazure - 2023 Professional Resume.pdf",
             "rb",
@@ -93,13 +94,16 @@ def get_resume_text(filename):
             reader = PyPDF2.PdfReader(file)
             for page in reader.pages:
                 resume_text += page.extract_text()
-        return resume_text
     else:
         s3_client = boto3.client("s3")
-        filename = f"templates/{filename}"
         response = s3_client.get_object(Bucket="resume-s3bucket", Key=filename)
-        resume_text = response["Body"].read().decode("utf-8")
-        return resume_text
+        # Read the PDF file content from S3 directly into a BytesIO object
+        file_content = BytesIO(response["Body"].read())
+        reader = PyPDF2.PdfReader(file_content)
+        for page in reader.pages:
+            resume_text += page.extract_text()
+    
+    return resume_text
 
 
 # =========================== data templates =============================================================================================
@@ -680,3 +684,10 @@ parsed_user_data = {
         "Avid user of Microsoft Office and Google suite for statistical analysis and project management",
     ],
 }
+event_body = {
+    "body":
+        {
+        "filename": "staging/mem_sb_clq9zsvcd0rvl0snkd3bz1nwt_1707869702505_resume.pdf"
+        }
+}
+lambda_handler(event_body, None)
