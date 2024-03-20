@@ -7,7 +7,6 @@ import PyPDF2
 import openai
 from openai import OpenAI
 import boto3
-from botocore.exceptions import ClientError, BotoCoreError
 
 from copy import deepcopy
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -28,9 +27,9 @@ def get_secret_value(api_key_identifier):
 
     try:
         get_secret_value_response = client.get_secret_value(SecretId=SECRET_NAME)
-    except ClientError as e:
+    except Exception as e:
         # Handle exceptions as necessary.
-        print(f"ClientError: {e}")
+        print(f"Exception: {e}")
         return None
     
     # Extract the secret JSON
