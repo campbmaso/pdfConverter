@@ -17,6 +17,7 @@ import requests
 import time
 import json
 
+
 # AWS Secrets Manager client
 dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
 api_usage_table = dynamodb.Table('APIKeyUsage')
