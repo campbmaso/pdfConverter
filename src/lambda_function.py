@@ -96,9 +96,8 @@ def get_resume_text(filename):
         return resume_text
     else:
         s3_client = boto3.client("s3")
-        BUCKET_NAME = os.environ.get("resume_bucket")
         filename = f"templates/{filename}"
-        response = s3_client.get_object(Bucket=BUCKET_NAME, Key=filename)
+        response = s3_client.get_object(Bucket="resume-s3bucket", Key=filename)
         resume_text = response["Body"].read().decode("utf-8")
         return resume_text
 
