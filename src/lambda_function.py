@@ -586,7 +586,7 @@ def generate_sections(dummy_resume, concurrent=True):
 
 # ===================================================== Function executions =================================================================
 
-def lambda_handler(event):
+def lambda_handler(event, context):
     print(f"event: {event}")
     execution_start = time.time()
     event_body = event.get('body')
