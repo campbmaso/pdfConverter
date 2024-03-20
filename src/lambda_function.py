@@ -83,11 +83,11 @@ BUCKET_NAME = os.environ.get("resume_bucket")
 
 resume_text = ""
 def get_resume_text(filename):
-    local = True
+    local = os.getenv("LOCAL", False)
     resume_text = ""
     if local == True:
         with open(
-            "/Users/campbmaso/Desktop/Development/GitHub/Sandbox/Backend/resumes/Elias TOUIL CV (1).pdf",
+            "/Users/campbmaso/Desktop/Development/GitHub/pdfConverter/resumes/Cory Mazure - 2023 Professional Resume.pdf",
             "rb",
         ) as file:
             reader = PyPDF2.PdfReader(file)
