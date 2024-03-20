@@ -4,9 +4,9 @@ import PyPDF2
 # from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 # from docx.oxml import OxmlElement
 # from docx.oxml.ns import qn
+import boto3
 import openai
 from openai import OpenAI
-import boto3
 
 from copy import deepcopy
 from concurrent.futures import ThreadPoolExecutor, as_completed
