@@ -1,9 +1,9 @@
 import PyPDF2
-from docx import Document
-from docx.shared import Pt
-from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from docx.oxml import OxmlElement
-from docx.oxml.ns import qn
+# from docx import Document
+# from docx.shared import Pt
+# from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+# from docx.oxml import OxmlElement
+# from docx.oxml.ns import qn
 import openai
 from openai import OpenAI
 import boto3
@@ -26,30 +26,27 @@ BUCKET_NAME = os.environ.get("resume_bucket")
 # open the file: "/Users/campbmaso/Desktop/Development/GitHub/Sandbox/Backend/resumes/TEMPLATE - Pscyence Resume Service (1).docx"
 
 # =========================== get resume files ready =============================================================================================
-# local version
-# file_path = "/Users/campbmaso/Desktop/Development/GitHub/Sandbox/Backend/resumes/TEMPLATE - Pscyence Resume Service (1).docx"
-# with open(file_path, "rb") as f:
-#     file_content = BytesIO(f.read())
-# new_doc = Document(file_content)
-# styles = new_doc.styles
-
-# grabbing the template resume from s3
-template_version = 1
-template_object = s3_client.get_object(
-    Bucket="resume-s3bucket", Key=f"templates/Serif Template {template_version}.docx"
-)
-template_content = BytesIO(template_object["Body"].read())
-
-new_doc = Document(template_content)
 
 resume_text = ""
-with open(
-    "/Users/campbmaso/Desktop/Development/GitHub/Sandbox/Backend/resumes/Elias TOUIL CV (1).pdf",
-    "rb",
-) as file:
-    reader = PyPDF2.PdfReader(file)
-    for page in reader.pages:
-        resume_text += page.extract_text()
+def get_resume_text(filename):
+    local = True
+    resume_text = ""
+    if local == True:
+        with open(
+            "/Users/campbmaso/Desktop/Development/GitHub/Sandbox/Backend/resumes/Elias TOUIL CV (1).pdf",
+            "rb",
+        ) as file:
+            reader = PyPDF2.PdfReader(file)
+            for page in reader.pages:
+                resume_text += page.extract_text()
+        return resume_text
+    else:
+        s3_client = boto3.client("s3")
+        BUCKET_NAME = os.environ.get("resume_bucket")
+        filename = f"templates/{filename}"
+        response = s3_client.get_object(Bucket=BUCKET_NAME, Key=filename)
+        resume_text = response["Body"].read().decode("utf-8")
+        return resume_text
 
 
 # =========================== data templates =============================================================================================
@@ -533,337 +530,28 @@ def generate_sections(dummy_resume, concurrent=True):
     return parsed_user_data
 
 
-# =========================== Document manipulation functions ========================================================================================
-def replace_text_while_keeping_formatting(paragraph, old_text, new_text):
-    for run in paragraph.runs:
-        if run.text.strip() != "":
-            print(f"im changing this run: {run.text}")
-            run.text = run.text.replace(old_text, new_text)
-            print(f"BEFORE: {old_text} /// AFTER: {run.text}")
-
-
-def remove_paragraph(paragraph):
-    p = paragraph._element
-    parent = p.getparent()
-    if parent is not None:
-        print(f"paragraph removed: {paragraph.text}")
-        parent.remove(p)
-
-
-def move_paragraph_after(paragraph, ref_paragraph):
-    p = paragraph._element
-    # print(f"paragraph text being moved: {paragraph.text}")
-    ref_p = ref_paragraph._element
-    parent = ref_p.getparent()
-    if parent is not None:
-        parent.insert(parent.index(ref_p) + 1, p)
-
-
-def add_list_paragraph(document, paragraph, bullet_points, numId, ilvl=0):
-    """
-    Adds bullet points as a list to a Word document using OOXML.
-
-    Parameters:
-    - document: The Document object being modified.
-    - paragraph: The Paragraph object where the list starts.
-    - bullet_points: A list of strings, each representing a bullet point.
-    - numId: The numbering definition ID to use for the list.
-    - ilvl: The indentation level of the list (default is 0).
-    """
-    # Ensure the paragraph is part of a list
-    p = paragraph._p  # access to the underlying lxml paragraph element
-    pPr = p.get_or_add_pPr()  # access or add paragraph properties
-    numPr = OxmlElement("w:numPr")  # create numPr element
-    numId_element = OxmlElement("w:numId")
-    numId_element.set(
-        qn("w:val"), str(numId)
-    )  # set numId to the numbering definition ID
-    ilvl_element = OxmlElement("w:ilvl")
-    ilvl_element.set(qn("w:val"), str(ilvl))  # set ilvl to the indentation level
-    numPr.append(ilvl_element)
-    numPr.append(numId_element)
-    pPr.append(numPr)
-
-    # Add bullet points as separate paragraphs
-    for bullet in bullet_points:
-        new_para = document.add_paragraph()
-        new_para.add_run(bullet)
-        # Apply the same list formatting
-        new_p = new_para._p
-        new_pPr = new_p.get_or_add_pPr()
-        new_numPr = deepcopy(numPr)  # copy the numPr element to new paragraphs
-        new_pPr.append(new_numPr)
-        move_paragraph_after(new_para, paragraph)
-
-
-# =========================== transfer data to template ========================================================================================
-
-
-def add_work_experience_to_document(document, w_e_para_object, experiences):
-    for experience in reversed(experiences):
-        # Add Bullet Points
-        if experience.get("bullets"):
-            add_list_paragraph(document, para_object, experience["bullets"], numId=1)
-
-        # Add Company Name and Location
-        paragraph = document.add_paragraph()
-        run = paragraph.add_run(
-            f"  {experience['company']}, {experience['location']} \t ({experience['date_range']})"
-        )
-        run.italic = True
-        run.font.size = Pt(11)
-        paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
-        move_paragraph_after(paragraph, w_e_para_object)
-
-        # Add Job Title
-        paragraph = document.add_paragraph()
-        paragraph.paragraph_format.space_before = Pt(
-            6
-        )  # Add 6pt spacing before this paragraph
-        run = paragraph.add_run(experience["job_title"])
-        run.bold = True
-        run.font.size = Pt(12)
-        paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
-        move_paragraph_after(paragraph, w_e_para_object)
-
-        # Add a blank line after each experience section for spacing
-        document.add_paragraph()
-
-    remove_paragraph(w_e_para_object)
-
-
-def add_leadership_experience_to_document(document, l_e_para_object, experiences):
-    for experience in reversed(experiences):
-        # Add Bullet Points
-        add_list_paragraph(document, l_e_para_object, experience["bullets"], numId=1)
-
-        # Add leadership Title
-        paragraph = document.add_paragraph()
-        paragraph.paragraph_format.space_before = Pt(
-            6
-        )  # Add 6pt spacing before this paragraph
-        run = paragraph.add_run(experience["title"])
-        run.bold = True
-        run.font.size = Pt(12)
-        paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
-        move_paragraph_after(paragraph, l_e_para_object)
-
-    remove_paragraph(l_e_para_object)
-
-
-def add_projects_to_document(document, p_para_object, projects):
-    for project in reversed(projects):
-        # Add Bullet Points
-        add_list_paragraph(document, p_para_object, project["bullets"], numId=1)
-
-        # Add Project Title
-        paragraph = document.add_paragraph()
-        paragraph.paragraph_format.space_before = Pt(
-            2
-        )  # Add 6pt spacing before this paragraph
-        run = paragraph.add_run(project["title"])
-        run.bold = True
-        run.font.size = Pt(12)
-        paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
-        move_paragraph_after(paragraph, p_para_object)
-
-    remove_paragraph(p_para_object)
-
-
-def add_additional_activities_to_document(document, a_a_para_object, activities):
-    for activity in reversed(activities):
-        # Add Bullet Points
-        if activity.get("bullets"):
-            add_list_paragraph(document, a_a_para_object, activity["bullets"], numId=1)
-
-        # Add Activity Title
-        paragraph = document.add_paragraph()
-        paragraph.paragraph_format.space_before = Pt(
-            2
-        )  # Add 6pt spacing before this paragraph
-        run = paragraph.add_run(activity["title"])
-        run.bold = True
-        run.font.size = Pt(12)
-        paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
-        move_paragraph_after(paragraph, a_a_para_object)
-
-    remove_paragraph(a_a_para_object)
-
-
-def add_education_to_document(document, ed_para_object, educations):
-    for education in reversed(educations):
-        print(f"education: {education}")
-        # Add Bullet Points
-        if education.get("bullets"):
-            add_list_paragraph(
-                document, ed_para_object, education.get("bullets"), numId=1
-            )
-
-        # Add Company Name and Location
-        paragraph = document.add_paragraph()
-        run = paragraph.add_run(
-            f"  {education.get('institution')}, {education.get('location')} \t ({education.get('date_range')})"
-        )
-        run.italic = True
-        run.font.size = Pt(11)
-        paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
-        move_paragraph_after(paragraph, ed_para_object)
-
-        # Add Job Title
-        paragraph = document.add_paragraph()
-        paragraph.paragraph_format.space_before = Pt(
-            6
-        )  # Add 6pt spacing before this paragraph
-        run = paragraph.add_run(education["degree"])
-        run.bold = True
-        run.font.size = Pt(12)
-        paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.LEFT
-        move_paragraph_after(paragraph, ed_para_object)
-
-    remove_paragraph(ed_para_object)
-
-
-def combine_skills(skills):
-    if isinstance(skills, dict):
-        # Handle the case when skills are provided as a dictionary with categories
-        new_text = ""
-        for category, skills_list in skills.items():
-            skills_text = ", ".join(skills_list)  # Join all skills in the list
-            new_text += f"{category}: {skills_text}; "
-    elif isinstance(skills, list):
-        # Handle the case when skills are provided as a simple list
-        new_text = ", ".join(skills)
-    else:
-        new_text = None
-
-    return new_text
-
-
-def transfer_data_to_template(para_object, document):
-
-    # ==================================================== Header Section =========================================================
-    if "Name" in para_object.text:
-        new_text = parsed_user_data["personal_information"]["name"]
-        replace_text_while_keeping_formatting(para_object, "Name", new_text)
-
-    elif "information" in para_object.text:
-        # TODO: Add a check for if the user has no linkedin, email, or phone
-        components = [
-            parsed_user_data["personal_information"].get("email"),
-            parsed_user_data["personal_information"].get("phone"),
-            parsed_user_data["personal_information"].get("linkedin"),
-        ]
-        # Filter out None values and join the remaining components with ' | '
-        new_text = " | ".join(filter(None, components))
-        replace_text_while_keeping_formatting(para_object, "information", new_text)
-
-    # ==================================================== Summary Section =======================================================
-    elif "summary_text" in para_object.text:
-        new_text = parsed_user_data.get("summary")
-        if new_text:
-            print(f"found summary text")
-            replace_text_while_keeping_formatting(para_object, "summary_text", new_text)
-        else:
-            remove_paragraph(para_object)
-            for para_object in new_doc.paragraphs:
-                if "Summary" in para_object.text:
-                    remove_paragraph(para_object)
-
-    # ==================================================== Additional Activities Section ======================================================
-    elif "additional_activities_text" in para_object.text:
-        additional_activities = parsed_user_data.get("additional_activities")
-        if additional_activities:
-            print(f"found additional_activities_text")
-            add_additional_activities_to_document(
-                document, para_object, additional_activities
-            )
-        else:
-            # remove the placholder paragraph and the section header if the user has no activities section
-            print(f"removing additional activities section")
-            remove_paragraph(para_object)
-            for para_object in new_doc.paragraphs:
-                if ("additional_activities_text" in para_object.text) or (
-                    "Additional Activities" in para_object.text
-                ):
-                    remove_paragraph(para_object)
-
-    # ==================================================== Projects Section ======================================================
-    elif "projects" in para_object.text:
-        projects = parsed_user_data.get("projects")
-        if projects:
-            print(f"found work experience text in {para_object.text}")
-            add_leadership_experience_to_document(document, para_object, projects)
-        else:
-            # remove the placholder paragraph and the section header if the user has no work experience
-            remove_paragraph(para_object)
-            for para_object in new_doc.paragraphs:
-                if ("Projects" in para_object.text) or ("projects" in para_object.text):
-                    remove_paragraph(para_object)
-
-    # ==================================================== Leadership Section ====================================================
-    elif "leadership_text" in para_object.text:
-        leadership_experience = parsed_user_data.get("leadership_experience")
-        if leadership_experience:
-            print(f"found work experience text in {para_object.text}")
-            add_leadership_experience_to_document(
-                document, para_object, leadership_experience
-            )
-        else:
-            # remove the placholder paragraph and the section header if the user has no work experience
-            remove_paragraph(para_object)
-            for para_object in new_doc.paragraphs:
-                if ("Leadership Experience" in para_object.text) or (
-                    "leadership_text" in para_object.text
-                ):
-                    remove_paragraph(para_object)
-
-    # ==================================================== Work Experience Section ====================================================
-    elif "work_experience_text" in para_object.text:
-        work_experience = parsed_user_data.get("work_experience")
-        if work_experience:
-            print(f"found work experience text in {para_object.text}")
-            add_work_experience_to_document(document, para_object, work_experience)
-        else:
-            # remove the placholder paragraph and the section header if the user has no work experience
-            remove_paragraph(para_object)
-            for para_object in new_doc.paragraphs:
-                if ("Work Experience" in para_object.text) or (
-                    "work_experience_text" in para_object.text
-                ):
-                    remove_paragraph(para_object)
-
-    # ==================================================== Skills Section ========================================================
-    elif "skills" in para_object.text:
-        # Assuming summary text is a direct string in your new format
-        skills_list = parsed_user_data.get("skills")
-        new_text = combine_skills(skills_list)
-        if new_text:
-            print(f"found skill text")
-            replace_text_while_keeping_formatting(para_object, "skills", new_text)
-        else:
-            # remove the placholder paragraph and the section header if the user has no skills
-            remove_paragraph(para_object)
-            for para_object in new_doc.paragraphs:
-                if "Skills" in para_object.text:
-                    remove_paragraph(para_object)
-
-    # ==================================================== Education Section ====================================================
-    elif "education_text" in para_object.text:
-        if parsed_user_data.get("education"):
-            print(f"found education text in {para_object.text}")
-            add_education_to_document(
-                document, para_object, parsed_user_data["education"]
-            )
-        else:
-            # remove the placholder paragraph and the section header if the user has no education info
-            remove_paragraph(para_object)
-            for para_object in new_doc.paragraphs:
-                if "Education" in para_object.text:
-                    remove_paragraph(para_object)
-
-
 # ===================================================== Function executions =================================================================
 
+def lambda_handler(event):
+    print(f"event: {event}")
+    execution_start = time.time()
+    event_body = event.get('body')
+    filename = event_body.get('filename')
+    resume_text = get_resume_text(filename)
+    parsed_user_data = generate_sections(resume_text)
+    print(f"execution time took: {time.time() - execution_start} seconds.")
+    
+    json_user_data = json.dumps(parsed_user_data, indent=4)
+    # write to json file for review:
+    with open(
+        "/Users/campbmaso/Desktop/Development/GitHub/Sandbox/Backend/resumes/parsed_user_data.json",
+        "w",
+    ) as file:
+        file.write(json_user_data)
+        print(f"parsed_user_data written to file.")
+        
+    return parsed_user_data
+    
 parsed_user_data = {
     "personal_information": {
         "name": "Cory G. Mazure",
@@ -947,51 +635,9 @@ parsed_user_data = {
     ],
 }
 
-
-generation_start = time.time()
-parsed_user_data = generate_sections(resume_text)
-json_user_data = json.dumps(parsed_user_data, indent=4)
-# write to json file for review:
-with open(
-    "/Users/campbmaso/Desktop/Development/GitHub/Sandbox/Backend/resumes/parsed_user_data.json",
-    "w",
-) as file:
-    file.write(json_user_data)
-    print(f"parsed_user_data written to file.")
-
-print(f"\n\nparsed_user_data: {parsed_user_data}\n\n")
-
-print(f"Total generation_time took: {time.time() - generation_start} seconds.\n")
-
-
-loop_start = time.time()
-
-processed_sections = set()
-for para_object in list(new_doc.paragraphs):
-    if para_object.text not in processed_sections:
-        # print(f"para_object.text: {para_object.text}")
-        transfer_data_to_template(para_object, new_doc)
-        processed_sections.add(para_object.text)
-    else:
-        print(f"Skipping already processed para_object.text: {para_object.text}")
-
-# print(f"processed_sections: {processed_sections}")
-
-# ===============================================================================================================================================
-# =========================== save the new document =============================================================================================
-# ===============================================================================================================================================
-
-# Save the modified document back to a BytesIO stream
-modified_content = BytesIO()
-new_doc.save(modified_content)
-
-# Now, to save the content of the BytesIO object to a file
-with open(
-    "/Users/campbmaso/Desktop/Development/GitHub/Sandbox/Backend/resumes/RESULT_resume.docx",
-    "wb",
-) as output_file:
-    # Go to the beginning of the BytesIO stream
-    modified_content.seek(0)
-    # Write the contents of the BytesIO stream to the file
-    output_file.write(modified_content.read())
-    print("File saved successfully!")
+event = {
+    "body": {
+        "filename": "mem_sb_clq9zsvcd0rvl0snkd3bz1nwt_1707869702505_resume.pdf"
+    }
+}
+lambda_handler(event)
