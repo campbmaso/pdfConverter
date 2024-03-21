@@ -603,7 +603,7 @@ def add_work_experience_to_document(document, w_e_para_object, experiences):
     for experience in reversed(experiences):
         # Add Bullet Points
         if experience.get("bullets"):
-            add_list_paragraph(document, para_object, experience["bullets"], numId=1)
+            add_list_paragraph(document, w_e_para_object, experience["bullets"], numId=1)
 
         # Add Company Name and Location
         paragraph = document.add_paragraph()
