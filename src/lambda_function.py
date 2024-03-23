@@ -102,7 +102,7 @@ def get_resume_text(filename):
         reader = PyPDF2.PdfReader(file_content)
         for page in reader.pages:
             resume_text += page.extract_text()
-    
+    print(f"full resume text: {resume_text}")
     return resume_text
 
 
@@ -525,6 +525,7 @@ def get_certifications_section(resume):
 def convert_string_to_json(string):
     try:
         json_formatted = json.loads(string)
+        print(f"converted JSON: {json_formatted} from string: {string}")
         return json_formatted
     except json.JSONDecodeError as e:
         print(f"Error: {e}")
@@ -536,17 +537,11 @@ def generate_sections(dummy_resume, concurrent=True):
         # ============================ Call the functions in serial to parse the sections ============================
         user_header_data = convert_string_to_json(get_header_section(dummy_resume))
         user_summary_data = convert_string_to_json(get_summary_section(dummy_resume))
-        work_experience_data = convert_string_to_json(
-            get_work_experience_section(dummy_resume)
-        )
-        additional_activities_data = convert_string_to_json(
-            get_additional_activities_section(dummy_resume)
-        )
+        work_experience_data = convert_string_to_json(get_work_experience_section(dummy_resume))
+        additional_activities_data = convert_string_to_json(get_additional_activities_section(dummy_resume))
         skills_data = convert_string_to_json(get_skills_section(dummy_resume))
         education_data = convert_string_to_json(get_education_section(dummy_resume))
-        certifications_data = convert_string_to_json(
-            get_certifications_section(dummy_resume)
-        )
+        certifications_data = convert_string_to_json(get_certifications_section(dummy_resume))
     else:
         # ============================ Call the functions concurrently to parse the sections ============================
         with ThreadPoolExecutor(max_workers=7) as executor:
@@ -580,6 +575,7 @@ def generate_sections(dummy_resume, concurrent=True):
         **education_data,
         # **certifications_data,
     }
+    print(f"parsed user data type: {type(parsed_user_data)}")
     return parsed_user_data
 
 
@@ -589,10 +585,15 @@ def lambda_handler(event, context):
     print(f"event: {event}")
     execution_start = time.time()
     event_body = event.get('body')
-    filename = event_body.get('filename')
-    resume_text = get_resume_text(filename)
     
-    parsed_user_data = generate_sections(resume_text)
+    if event_body.get("local_testing"):
+        filename = "staging/mem_sb_clq9zsvcd0rvl0snkd3bz1nwt_1707869702505_resume.pdf"
+    else:
+        filename = event_body.get('filename')
+    
+    resume_text = get_resume_text(filename) # use pyPDF2 to extract text from the resume
+    parsed_user_data = generate_sections(resume_text) # use OpenAI to parse the resume text
+    
     print(f"execution time took: {time.time() - execution_start} seconds.")
     # json_user_data = json.dumps(parsed_user_data, indent=4)
     print(F"parsed_user_data: {parsed_user_data}")
@@ -603,93 +604,3 @@ def lambda_handler(event, context):
         }
     return response
 
-# if os.getenv("LOCAL", True):
-#     parsed_user_data = {
-#         "personal_information": {
-#             "name": "Cory G. Mazure",
-#             "email": "cory.mazure@gmail.com",
-#             "phone": "(586) 961-5274",
-#             "linkedin": "www.linkedin.com/in/cory-mazure",
-#         },
-#         "work_experience": [
-#             {
-#                 "job_title": "Process Engineer, Golf Ball R&D",
-#                 "company": "Callaway Golf",
-#                 "location": "Carlsbad, CA",
-#                 "date_range": "January 2023 - Present",
-#                 "bullets": [
-#                     "Lead engineer behind the experimentation, validation, and implementation of new spray gun equipment in production for 3 paint lines, resulting in a more controllable process and quality product",
-#                     "Organized DOEs to study differences in mechanical processes between R&D and production, reducing variance in processes and accelerating new ball development",
-#                     "Implemented new test methods to validate chemistry, leading to new proprietary golf ball features",
-#                     "Utilized injection molding modeling software to modify tooling, improving concentricity and yield",
-#                 ],
-#             },
-#             {
-#                 "job_title": "Mechanical Engineering, Vehicle Safety Engineering",
-#                 "company": "Stellantis",
-#                 "location": "Auburn Hills, MI",
-#                 "date_range": "Summer of 2019 – Summer 2022",
-#                 "bullets": [
-#                     "Led a design for six sigma project for optimizing the amount of test dummies in use, saving $250K/year",
-#                     "Reduced vehicle validation timing by developing test fixtures for high inertia door latch testing",
-#                     "Analyzed channel data for 80+ test rib deflection study, resulting in global program airbag innovations",
-#                     "Coordinated JD Power quality study and benchmarking for heated steering wheel (HSW) optimization",
-#                     "Strengthened best practices for HSW calibration ranges, resulting in enhanced customer satisfaction",
-#                     "Investigated 2 competing suppliers for hands-on detection mats via Minitab statistical analysis, leading to more competitive pricing",
-#                     "Established statistical analysis of the dummy labs 4 certification machines, reducing certification timing and associated costs by $20K/year",
-#                     "Validated 2 energy absorbing knee brackets and a driver airbag, achieving higher safety ratings",
-#                 ],
-#             },
-#         ],
-#         "leadership_experience": [
-#             {
-#                 "title": "Kettering Student Government Operations Council – Director",
-#                 "bullets": [
-#                     "Planned and executed over 15 events a term, communicating progress of the council weekly to other government sub-sections"
-#                 ],
-#             },
-#         ],
-#         "projects": [
-#             {
-#                 "title": "Personal Portfolio Website",
-#                 "bullets": [
-#                     "A personal website to showcase my projects and resume. Built with HTML, CSS, and JavaScript."
-#                 ],
-#                 "link": "http://www.johndoeportfolio.com",
-#             }
-#         ],
-#         "education": [
-#             {
-#                 "degree": "Bachelor of Science in Mechanical Engineering",
-#                 "institution": "Kettering University",
-#                 "location": "Flint, MI",
-#                 "date_range": "Oct. 2019 - Dec. 2022",
-#                 "bullets": [
-#                     "Graduated with honors",
-#                     "GPA: 3.95/4.00",
-#                     "Summa Cum Laude",
-#                     "Dean's List every academic term",
-#                 ],
-#             },
-#             {
-#                 "degree": "Kubernetes Administrator",
-#                 "institution": "The International Linux Foundation",
-#                 "date_range": "Oct. 2019 - Dec. 2022",
-#             },
-#         ],
-#         "skills": [
-#             "Stellantis Sponsored Courses: Attended 5 in depth training courses for DFMEA, DFSS, and GD&T",
-#             "Moldflow injection molding simulation software",
-#             "Proficient in NX, Fusion 360, & SolidWorks: CAE and FEA",
-#             "Experienced in Minitab statistical analysis software for interpreting DOE results",
-#             "Utilized Altair Hyperworks to analyze vehicle crash data",
-#             "Avid user of Microsoft Office and Google suite for statistical analysis and project management",
-#         ],
-#     }
-#     event_body = {
-#         "body":
-#             {
-#             "filename": "staging/mem_sb_clq9zsvcd0rvl0snkd3bz1nwt_1707869702505_resume.pdf"
-#             }
-#     }
-#     lambda_handler(event_body, None)
