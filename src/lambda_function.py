@@ -83,25 +83,14 @@ BUCKET_NAME = os.environ.get("resume_bucket")
 
 resume_text = ""
 def get_resume_text(filename):
-    local = os.getenv("LOCAL", False)
     resume_text = ""
-
-    if local:
-        with open(
-            "/Users/campbmaso/Desktop/Development/GitHub/pdfConverter/resumes/Cory Mazure - 2023 Professional Resume.pdf",
-            "rb",
-        ) as file:
-            reader = PyPDF2.PdfReader(file)
-            for page in reader.pages:
-                resume_text += page.extract_text()
-    else:
-        s3_client = boto3.client("s3")
-        response = s3_client.get_object(Bucket="resume-s3bucket", Key=filename)
-        # Read the PDF file content from S3 directly into a BytesIO object
-        file_content = BytesIO(response["Body"].read())
-        reader = PyPDF2.PdfReader(file_content)
-        for page in reader.pages:
-            resume_text += page.extract_text()
+    s3_client = boto3.client("s3")
+    response = s3_client.get_object(Bucket="resume-s3bucket", Key=filename)
+    # Read the PDF file content from S3 directly into a BytesIO object
+    file_content = BytesIO(response["Body"].read())
+    reader = PyPDF2.PdfReader(file_content)
+    for page in reader.pages:
+        resume_text += page.extract_text()
     print(f"full resume text: {resume_text}")
     return resume_text
 
@@ -587,17 +576,33 @@ def lambda_handler(event, context):
     event_body = event.get('body')
     
     if event_body.get("local_testing"):
-        filename = "staging/mem_sb_clq9zsvcd0rvl0snkd3bz1nwt_1707869702505_resume.pdf"
+        filename = event_body.get('filename')
+        resume_text = get_resume_text(filename) # use pyPDF2 to extract text from the resume
+        parsed_user_data = generate_sections(resume_text) # use OpenAI to parse the resume text
+        print(F"parsed_user_data: {parsed_user_data}")
+
+        import sys
+        from pathlib import Path
+        # Add the sandbox directory to sys.path
+        sys.path.append(str(Path(__file__).resolve().parent.parent / 'sandbox'))
+
+        import mock_resumeAI as rad
+
+        mock_event = {
+            "body": json.dumps(parsed_user_data)
+        }
+
+        rad.convert_pdf_to_docx2(mock_event, None)
+        return None
+        
     else:
         filename = event_body.get('filename')
-    
-    resume_text = get_resume_text(filename) # use pyPDF2 to extract text from the resume
-    parsed_user_data = generate_sections(resume_text) # use OpenAI to parse the resume text
+        resume_text = get_resume_text(filename) # use pyPDF2 to extract text from the resume
+        parsed_user_data = generate_sections(resume_text) # use OpenAI to parse the resume text
+        print(F"parsed_user_data: {parsed_user_data}")
     
     print(f"execution time took: {time.time() - execution_start} seconds.")
-    # json_user_data = json.dumps(parsed_user_data, indent=4)
-    print(F"parsed_user_data: {parsed_user_data}")
-    # parsed_user_data = "test"
+    
     response = {
             "statusCode": 200,
             "body": json.dumps(parsed_user_data)
