@@ -27,7 +27,7 @@ def remove_paragraph(paragraph):
     p = paragraph._element
     parent = p.getparent()
     if parent is not None:
-        print(f"paragraph removed: {paragraph.text}")
+        # print(f"paragraph removed: {paragraph.text}")
         parent.remove(p)
 
 def move_paragraph_after(paragraph, ref_paragraph):
@@ -348,9 +348,6 @@ def convert_pdf_to_docx2(file_content, filename):
         template_content = BytesIO(template_object["Body"].read())
 
         new_doc = Document(template_content)
-        print("printing new_doc paragraphs BEFORE MODS")
-        for para_object in list(new_doc.paragraphs):
-            print(f"para_object.text: {para_object.text}")
 
         # transferring data to the template    
         processed_sections = set()

@@ -323,8 +323,8 @@ certifications_template = {
 
 def get_header_section(resume):
     start = time.time()
-    resume = " ".join(resume.split()[:50])
-    print(f"SPLIT resume: {resume}")
+    # resume = " ".join(resume.split()[:50])
+    # print(f"SPLIT resume: {resume}")
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         response_format={"type": "json_object"},
@@ -344,7 +344,7 @@ def get_header_section(resume):
     if section == "":
         print("No header found.")
         return None
-    print(f"response: {section}")
+    print(f"GPT RESPONSE: {section}")
     print(f"GPT time took: {time.time() - start} seconds.\n")
     return section
 
@@ -371,7 +371,7 @@ def get_summary_section(resume):
     if section == "":
         print("No summary found.")
         return None
-    print(f"response: {section}")
+    print(f"GPT RESPONSE: {section}")
     print(f"GPT time took: {time.time() - start} seconds.\n")
     return section
 
@@ -465,11 +465,11 @@ def get_education_section(resume):
         messages=[
             {
                 "role": "system",
-                "content": f"Please find the user education section from their resume, and return it in JSON format.",
+                "content": f"Please find the user education and certifications section from their resume, and return it in JSON format.",
             },
             {
                 "role": "user",
-                "content": f"""Please find the user skills section from their resume and return it in JSON format like this example: {education_template}. \n Here is the resume: {resume}. 
+                "content": f"""Please find the user education section including their certifications from their resume and return it in JSON format like this example: {education_template}. \n Here is the resume: {resume}. 
                 If the user does not have a education section already present in their resume, please return an empty string.""",
             },
         ],
@@ -506,7 +506,7 @@ def get_certifications_section(resume):
     if section == "":
         print("No additional activities found.")
         return None
-    print(f"response: {section}")
+    print(f"GPT RESPONSE: {section}")
     print(f"GPT time took: {time.time() - start} seconds.\n")
     return section
 
@@ -514,7 +514,6 @@ def get_certifications_section(resume):
 def convert_string_to_json(string):
     try:
         json_formatted = json.loads(string)
-        print(f"converted JSON: {json_formatted} from string: {string}")
         return json_formatted
     except json.JSONDecodeError as e:
         print(f"Error: {e}")
@@ -575,7 +574,7 @@ def lambda_handler(event, context):
     execution_start = time.time()
     event_body = event.get('body')
     
-    if event_body.get("local_testing"):
+    if event_body.get("mock_resumeAI"):
         filename = event_body.get('filename')
         resume_text = get_resume_text(filename) # use pyPDF2 to extract text from the resume
         parsed_user_data = generate_sections(resume_text) # use OpenAI to parse the resume text
@@ -585,8 +584,7 @@ def lambda_handler(event, context):
         from pathlib import Path
         # Add the sandbox directory to sys.path
         sys.path.append(str(Path(__file__).resolve().parent.parent / 'sandbox'))
-
-        import mock_resumeAI as rad
+        import local_resumeAI as rad
 
         mock_event = {
             "body": json.dumps(parsed_user_data)
@@ -594,7 +592,38 @@ def lambda_handler(event, context):
 
         rad.convert_pdf_to_docx2(mock_event, None)
         return None
+    
+    elif event_body.get("local_testing"):
+        resume_text = ""
+        with open(
+            "/Users/campbmaso/Desktop/Development/GitHub/pdfConverter/resumes/mem_clr6ci7es13s90sta0z3d2ymx_1705416872681_resume.pdf",
+            "rb",
+        ) as file:
+            reader = PyPDF2.PdfReader(file)
+            for page in reader.pages:
+                resume_text += page.extract_text()
         
+        print(f"full resume text: {resume_text}")
+        parsed_user_data = generate_sections(resume_text) # use OpenAI to parse the resume text
+        print(F"parsed_user_data: {parsed_user_data}")
+        
+        import sys
+        from pathlib import Path
+        # Add the sandbox directory to sys.path
+        sys.path.append(str(Path(__file__).resolve().parent.parent / 'sandbox'))
+        import mock_resumeAI as rad
+
+        local_event = {
+            "body": json.dumps(parsed_user_data)
+        }
+
+        modified_content = rad.convert_pdf_to_docx2(local_event, None)
+        
+        # Save the modified content to a file
+        with open("/Users/campbmaso/Desktop/Development/GitHub/pdfConverter/resumes/RESULT_resume.docx", 'wb') as f:
+            f.write(modified_content.getvalue())
+            
+        return None
     else:
         filename = event_body.get('filename')
         resume_text = get_resume_text(filename) # use pyPDF2 to extract text from the resume
